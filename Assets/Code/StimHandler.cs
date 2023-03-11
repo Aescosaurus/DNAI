@@ -33,5 +33,10 @@ public class StimHandler
 		return( nearby );
 	}
 
+	public static List<StimObj> GetStimObjs()
+	{
+		return( stimObjs );
+	}
+
 	static List<StimObj> stimObjs = new List<StimObj>();
 }

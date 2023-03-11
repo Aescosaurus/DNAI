@@ -11,5 +11,12 @@ public class StimObj
 		StimHandler.AddSelf( this );
 	}
 
+	public void Despawn()
+	{
+		StimHandler.RemoveSelf( this );
+
+		Destroy( gameObject );
+	}
+
 	[SerializeField] public Stimulus.Item stimType = Stimulus.Item.Count;
 }

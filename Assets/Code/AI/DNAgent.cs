@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.UIElements;
 
 public class DNAgent
 	:
@@ -79,8 +80,6 @@ public class DNAgent
 
 	void GenerateDNA()
 	{
-		dna = new List<Gene>();
-
 		int geneCount = ( int )Stimulus.Item.Count;
 		for( int i = 0; i < geneCount; ++i )
 		{
@@ -88,6 +87,25 @@ public class DNAgent
 			dna[dna.Count - 1].OverwriteStimulus( new Stimulus( ( Stimulus.Item )i,
 				( Dir )Random.Range( 0,( int )Dir.Count ) ) );
 		}
+	}
+
+	public void LoadDNA( List<Gene> genes )
+	{
+		dna.Clear();
+
+		dna.AddRange( genes );
+	}
+
+	public List<Gene> GenerateChild()
+	{
+		var childDNA = new List<Gene>();
+
+		foreach( var gene in dna )
+		{
+			childDNA.Add( gene.GenerateModified() );
+		}
+
+		return( childDNA );
 	}
 
 	Dir CalcDir( Vector3 objPos )
@@ -107,15 +125,13 @@ public class DNAgent
 	{
 		if( coll.tag == "Spike" )
 		{
-			StimHandler.RemoveSelf( GetComponent<StimObj>() );
-
-			Destroy( gameObject );
+			GetComponent<StimObj>().Despawn();
 		}
 	}
 
 	Rigidbody2D body;
 
-	List<Gene> dna;
+	List<Gene> dna = new List<Gene>();
 
 	List<Action> actionList = new List<Action>();
 
