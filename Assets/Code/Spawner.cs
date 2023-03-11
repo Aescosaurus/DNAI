@@ -33,7 +33,7 @@ public class Spawner
 				{
 					for( int i = 0; i < survivorDNAgent.GetFoodEaten() * offspringCount; ++i )
 					{
-						var offspringGenes = survivorDNAgent.GenerateChild();
+						var offspringGenes = survivorDNAgent.GenerateChild( i != 0 );
 						var child = SpawnObj( dnaiPrefab );
 						child.GetComponent<DNAgent>().LoadDNA( offspringGenes );
 						++spawnedChildren;

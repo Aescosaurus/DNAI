@@ -96,13 +96,16 @@ public class DNAgent
 		dna.AddRange( genes );
 	}
 
-	public List<Gene> GenerateChild()
+	public List<Gene> GenerateChild( bool modify = true )
 	{
 		var childDNA = new List<Gene>();
 
-		foreach( var gene in dna )
+		if( modify )
 		{
-			childDNA.Add( gene.GenerateModified() );
+			foreach( var gene in dna )
+			{
+				childDNA.Add( gene.GenerateModified() );
+			}
 		}
 
 		return( childDNA );
