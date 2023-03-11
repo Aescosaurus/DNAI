@@ -121,11 +121,21 @@ public class DNAgent
 		return( Dir.Count );
 	}
 
+	public int GetFoodEaten()
+	{
+		return( foodEaten );
+	}
+
 	void OnTriggerEnter2D( Collider2D coll )
 	{
 		if( coll.tag == "Spike" )
 		{
 			GetComponent<StimObj>().Despawn();
+		}
+		else if( coll.tag == "Food" )
+		{
+			++foodEaten;
+			coll.GetComponent<StimObj>().Despawn();
 		}
 	}
 
@@ -135,6 +145,8 @@ public class DNAgent
 
 	List<Action> actionList = new List<Action>();
 
+	int foodEaten = 0;
+
 	// we can modify this value with higher food cost to simulate metabolism
 	Timer actionCheckTimer = new Timer( 0.5f );
 
@@ -143,6 +155,6 @@ public class DNAgent
 	const float straightAngTolerance = 5.0f;
 	const float perceiveRange = 45.0f;
 
-	const float moveSpd = 0.003f;
-	const float turnSpd = 0.07f;
+	const float moveSpd = 0.1f;
+	const float turnSpd = 0.2f;
 }

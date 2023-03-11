@@ -243,6 +243,10 @@ MonoBehaviour:
   dnaiCount: 10
   foodCount: 10
   spikeCount: 5
+  waveDuration:
+    maxTime: 5
+  timeScale: 1
+  offspringCount: 3
 --- !u!4 &1380695613
 Transform:
   m_ObjectHideFlags: 0

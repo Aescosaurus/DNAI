@@ -25,16 +25,18 @@ public class Spawner
 
 			int spawnedObjsSize = spawnedObjs.Count;
 
+			int spawnedChildren = 0;
 			foreach( var survivor in survivors )
 			{
 				var survivorDNAgent = survivor.GetComponent<DNAgent>();
 				if( survivorDNAgent != null )
 				{
-					for( int i = 0; i < offspringCount; ++i )
+					for( int i = 0; i < survivorDNAgent.GetFoodEaten() * offspringCount; ++i )
 					{
 						var offspringGenes = survivorDNAgent.GenerateChild();
 						var child = SpawnObj( dnaiPrefab );
 						child.GetComponent<DNAgent>().LoadDNA( offspringGenes );
+						++spawnedChildren;
 					}
 				}
 			}
@@ -44,6 +46,12 @@ public class Spawner
 				if( spawnedObjs[i] != null ) spawnedObjs[i].GetComponent<StimObj>().Despawn();
 			}
 			spawnedObjs.RemoveRange( 0,spawnedObjsSize - 1 );
+
+			if( spawnedChildren < 1 )
+			{
+				for( int i = 0; i < dnaiCount; ++i ) SpawnObj( dnaiPrefab );
+				print( "no children, spawning new generation" );
+			}
 			
 			for( int i = 0; i < foodCount; ++i ) SpawnObj( foodPrefab );
 			for( int i = 0; i < spikeCount; ++i ) SpawnObj( spikePrefab );
