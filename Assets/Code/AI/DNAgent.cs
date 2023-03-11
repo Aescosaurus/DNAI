@@ -81,14 +81,12 @@ public class DNAgent
 	{
 		dna = new List<Gene>();
 
-		// at least 1 tick gene
-		dna.Add( new Gene() );
-		dna[dna.Count - 1].OverwriteStimulus( new Stimulus( Stimulus.Item.Tick,Dir.Straight ) );
-
-		int geneCount = 5;
+		int geneCount = ( int )Stimulus.Item.Count;
 		for( int i = 0; i < geneCount; ++i )
 		{
 			dna.Add( new Gene() );
+			dna[dna.Count - 1].OverwriteStimulus( new Stimulus( ( Stimulus.Item )i,
+				( Dir )Random.Range( 0,( int )Dir.Count ) ) );
 		}
 	}
 
